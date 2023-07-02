@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  contact: { }
+  contact: {}
   description: This is scheduler management API server. Use this API to manage jobs.
   title: Scheduler management API
   version: "1.0"
@@ -33,20 +33,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/model.Job'
+                  $ref: "#/components/schemas/model.Job"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handlers.ErrorResponse'
+                $ref: "#/components/schemas/handlers.ErrorResponse"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handlers.ErrorResponse'
+                $ref: "#/components/schemas/handlers.ErrorResponse"
           description: Internal Server Error
       summary: List jobs
       tags:
@@ -58,7 +58,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/model.JobCreate'
+              $ref: "#/components/schemas/model.JobCreate"
         description: Job Create
         required: true
       responses:
@@ -66,19 +66,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/model.Job'
+                $ref: "#/components/schemas/model.Job"
           description: Created
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handlers.ErrorResponse'
+                $ref: "#/components/schemas/handlers.ErrorResponse"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handlers.ErrorResponse'
+                $ref: "#/components/schemas/handlers.ErrorResponse"
           description: Internal Server Error
       summary: Create a job
       tags:
@@ -100,19 +100,19 @@ paths:
           style: simple
       responses:
         "204":
-          content: { }
+          content: {}
           description: No Content
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handlers.ErrorResponse'
+                $ref: "#/components/schemas/handlers.ErrorResponse"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handlers.ErrorResponse'
+                $ref: "#/components/schemas/handlers.ErrorResponse"
           description: Internal Server Error
       summary: Delete a job
       tags:
@@ -134,19 +134,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/model.Job'
+                $ref: "#/components/schemas/model.Job"
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handlers.ErrorResponse'
+                $ref: "#/components/schemas/handlers.ErrorResponse"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handlers.ErrorResponse'
+                $ref: "#/components/schemas/handlers.ErrorResponse"
           description: Internal Server Error
       summary: Get a job
       tags:
@@ -167,7 +167,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/model.JobUpdate'
+              $ref: "#/components/schemas/model.JobUpdate"
         description: Job Update
         required: true
       responses:
@@ -175,19 +175,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/model.Job'
+                $ref: "#/components/schemas/model.Job"
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handlers.ErrorResponse'
+                $ref: "#/components/schemas/handlers.ErrorResponse"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handlers.ErrorResponse'
+                $ref: "#/components/schemas/handlers.ErrorResponse"
           description: Internal Server Error
       summary: Update a job
       tags:
@@ -197,7 +197,8 @@ paths:
       x-accepts: application/json
   /jobs/{id}/executions:
     get:
-      description: Get job executions with the given job ID, failed only flag, limit
+      description:
+        Get job executions with the given job ID, failed only flag, limit
         and offset
       parameters:
         - description: Job ID
@@ -238,20 +239,20 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/model.JobExecution'
+                  $ref: "#/components/schemas/model.JobExecution"
                 type: array
           description: OK
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handlers.ErrorResponse'
+                $ref: "#/components/schemas/handlers.ErrorResponse"
           description: Bad Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/handlers.ErrorResponse'
+                $ref: "#/components/schemas/handlers.ErrorResponse"
           description: Internal Server Error
       summary: Get job executions
       tags:
@@ -267,7 +268,7 @@ components:
     model.AMQPJob:
       example:
         headers:
-          key: '{}'
+          key: "{}"
         content_type: content_type
         connection: connection
         exchange: exchange
@@ -305,7 +306,7 @@ components:
           type: string
         type:
           allOf:
-            - $ref: '#/components/schemas/model.AuthType'
+            - $ref: "#/components/schemas/model.AuthType"
           description: e.g., "none", "basic", "bearer"
           type: object
         username:
@@ -327,7 +328,7 @@ components:
         headers:
           key: headers
         method: method
-        auth: '{}'
+        auth: "{}"
         body: body
         valid_response_codes:
           - 0
@@ -336,7 +337,7 @@ components:
       properties:
         auth:
           allOf:
-            - $ref: '#/components/schemas/model.Auth'
+            - $ref: "#/components/schemas/model.Auth"
           description: 'e.g., {"type": "basic", "username": "foo", "password": "bar"}'
           type: object
         body:
@@ -365,7 +366,7 @@ components:
           headers:
             key: headers
           method: method
-          auth: '{}'
+          auth: "{}"
           body: body
           valid_response_codes:
             - 0
@@ -377,7 +378,7 @@ components:
         created_at: created_at
         amqp_job:
           headers:
-            key: '{}'
+            key: "{}"
           content_type: content_type
           connection: connection
           exchange: exchange
@@ -387,7 +388,7 @@ components:
         id: id
       properties:
         amqp_job:
-          $ref: '#/components/schemas/model.AMQPJob'
+          $ref: "#/components/schemas/model.AMQPJob"
         created_at:
           type: string
         cron_schedule:
@@ -397,24 +398,25 @@ components:
           description: for one-off jobs
           type: string
         http_job:
-          $ref: '#/components/schemas/model.HTTPJob'
+          $ref: "#/components/schemas/model.HTTPJob"
         id:
           type: string
         next_run:
-          description: when the job is scheduled to run next (can be null if the job
+          description:
+            when the job is scheduled to run next (can be null if the job
             is not scheduled to run again)
           type: string
         status:
-          $ref: '#/components/schemas/model.JobStatus'
+          $ref: "#/components/schemas/model.JobStatus"
         type:
-          $ref: '#/components/schemas/model.JobType'
+          $ref: "#/components/schemas/model.JobType"
         updated_at:
           type: string
       type: object
     model.JobCreate:
       properties:
         amqp_job:
-          $ref: '#/components/schemas/model.AMQPJob'
+          $ref: "#/components/schemas/model.AMQPJob"
         cron_schedule:
           description: for recurring jobs
           type: string
@@ -423,12 +425,12 @@ components:
           type: string
         http_job:
           allOf:
-            - $ref: '#/components/schemas/model.HTTPJob'
+            - $ref: "#/components/schemas/model.HTTPJob"
           description: HTTPJob and AMQPJob are mutually exclusive.
           type: object
         type:
           allOf:
-            - $ref: '#/components/schemas/model.JobType'
+            - $ref: "#/components/schemas/model.JobType"
           description: Job type
           type: object
       type: object
@@ -473,13 +475,13 @@ components:
     model.JobUpdate:
       properties:
         amqp:
-          $ref: '#/components/schemas/model.AMQPJob'
+          $ref: "#/components/schemas/model.AMQPJob"
         cron_schedule:
           type: string
         execute_at:
           type: string
         http:
-          $ref: '#/components/schemas/model.HTTPJob'
+          $ref: "#/components/schemas/model.HTTPJob"
         type:
-          $ref: '#/components/schemas/model.JobType'
+          $ref: "#/components/schemas/model.JobType"
       type: object
