@@ -1,4 +1,4 @@
-module github.com/GLCharge/distributed-scheduler-client
+module github.com/gapidobri/distributed-scheduler-client
 
 go 1.20
 
