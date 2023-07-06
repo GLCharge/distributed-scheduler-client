@@ -1,447 +1,366 @@
 openapi: 3.0.1
 info:
-  contact: {}
-  description: This is scheduler management API server. Use this API to manage jobs.
   title: Scheduler management API
+  description: This is scheduler management API server. Use this API to manage jobs.
+  contact: {}
   version: "1.0"
 servers:
-  - url: //localhost:8000/v1
+  - url: //http://localhost:8000/v1
 paths:
   /jobs:
     get:
-      description: List jobs with the given limit and offset
-      parameters:
-        - description: Limit
-          explode: true
-          in: query
-          name: limit
-          required: false
-          schema:
-            type: integer
-          style: form
-        - description: Offset
-          explode: true
-          in: query
-          name: offset
-          required: false
-          schema:
-            type: integer
-          style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: "#/components/schemas/model.Job"
-                type: array
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
-          description: Bad Request
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
-          description: Internal Server Error
-      summary: List jobs
       tags:
         - jobs
-      x-accepts: application/json
+      summary: List jobs
+      description: List jobs with the given limit and offset
+      parameters:
+        - name: limit
+          in: query
+          description: Limit
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Offset
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/model.Job"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handlers.ErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handlers.ErrorResponse"
     post:
+      tags:
+        - jobs
+      summary: Create a job
       description: Create a job with the given job create request
       requestBody:
+        description: Job Create
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/model.JobCreate"
-        description: Job Create
         required: true
       responses:
         "201":
+          description: Created
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/model.Job"
-          description: Created
         "400":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
           description: Bad Request
-        "500":
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/handlers.ErrorResponse"
+        "500":
           description: Internal Server Error
-      summary: Create a job
-      tags:
-        - jobs
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handlers.ErrorResponse"
       x-codegen-request-body-name: job
-      x-contentType: application/json
-      x-accepts: application/json
   /jobs/{id}:
-    delete:
-      description: Delete a job with the given job ID
-      parameters:
-        - description: Job ID
-          explode: false
-          in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          style: simple
-      responses:
-        "204":
-          content: {}
-          description: No Content
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
-          description: Bad Request
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
-          description: Internal Server Error
-      summary: Delete a job
+    get:
       tags:
         - jobs
-      x-accepts: application/json
-    get:
+      summary: Get a job
       description: Get a job with the given job ID
       parameters:
-        - description: Job ID
-          explode: false
+        - name: id
           in: path
-          name: id
+          description: Job ID
           required: true
           schema:
             type: string
-          style: simple
       responses:
         "200":
+          description: OK
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/model.Job"
-          description: OK
         "400":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
           description: Bad Request
-        "500":
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/handlers.ErrorResponse"
+        "500":
           description: Internal Server Error
-      summary: Get a job
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handlers.ErrorResponse"
+    put:
       tags:
         - jobs
-      x-accepts: application/json
-    put:
+      summary: Update a job
       description: Update a job with the given job update request
       parameters:
-        - description: Job ID
-          explode: false
+        - name: id
           in: path
-          name: id
+          description: Job ID
           required: true
           schema:
             type: string
-          style: simple
       requestBody:
+        description: Job Update
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/model.JobUpdate"
-        description: Job Update
         required: true
       responses:
         "200":
+          description: OK
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/model.Job"
-          description: OK
         "400":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
           description: Bad Request
-        "500":
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/handlers.ErrorResponse"
+        "500":
           description: Internal Server Error
-      summary: Update a job
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handlers.ErrorResponse"
+      x-codegen-request-body-name: job
+    delete:
       tags:
         - jobs
-      x-codegen-request-body-name: job
-      x-contentType: application/json
-      x-accepts: application/json
-  /jobs/{id}/executions:
-    get:
-      description:
-        Get job executions with the given job ID, failed only flag, limit
-        and offset
+      summary: Delete a job
+      description: Delete a job with the given job ID
       parameters:
-        - description: Job ID
-          explode: false
+        - name: id
           in: path
-          name: id
+          description: Job ID
           required: true
           schema:
             type: string
-          style: simple
-        - description: Failed Only
-          explode: true
-          in: query
-          name: failedOnly
-          required: false
-          schema:
-            type: boolean
-          style: form
-        - description: Limit
-          explode: true
-          in: query
-          name: limit
-          required: false
-          schema:
-            type: integer
-          style: form
-        - description: Offset
-          explode: true
-          in: query
-          name: offset
-          required: false
-          schema:
-            type: integer
-          style: form
       responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: "#/components/schemas/model.JobExecution"
-                type: array
-          description: OK
+        "204":
+          description: No Content
+          content: {}
         "400":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
           description: Bad Request
-        "500":
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/handlers.ErrorResponse"
+        "500":
           description: Internal Server Error
-      summary: Get job executions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handlers.ErrorResponse"
+  /jobs/{id}/executions:
+    get:
       tags:
         - jobs
-      x-accepts: application/json
+      summary: Get job executions
+      description: >-
+        Get job executions with the given job ID, failed only flag, limit and
+        offset
+      parameters:
+        - name: id
+          in: path
+          description: Job ID
+          required: true
+          schema:
+            type: string
+        - name: failedOnly
+          in: query
+          description: Failed Only
+          schema:
+            type: boolean
+        - name: limit
+          in: query
+          description: Limit
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Offset
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/model.JobExecution"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handlers.ErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/handlers.ErrorResponse"
 components:
   schemas:
     handlers.ErrorResponse:
+      type: object
       properties:
         error:
           type: string
-      type: object
     model.AMQPJob:
-      example:
-        headers:
-          key: "{}"
-        content_type: content_type
-        connection: connection
-        exchange: exchange
-        body: body
-        routing_key: routing_key
+      type: object
       properties:
         body:
+          type: string
           description: e.g., "Hello, world!"
-          type: string
         connection:
+          type: string
           description: e.g., "amqp://guest:guest@localhost:5672/"
-          type: string
         content_type:
+          type: string
           description: e.g., "text/plain"
-          type: string
         exchange:
+          type: string
           description: e.g., "my_exchange"
-          type: string
         headers:
-          additionalProperties:
-            type: object
-          description: 'e.g., {"x-delay": 10000}'
           type: object
+          properties: {}
+          description: 'e.g., {"x-delay": 10000}'
         routing_key:
-          description: e.g., "my_routing_key"
           type: string
-      type: object
+          description: e.g., "my_routing_key"
     model.Auth:
+      type: object
       properties:
         bearer_token:
+          type: string
           description: for "bearer"
-          type: string
         password:
-          description: for "basic"
           type: string
+          description: for "basic"
         type:
+          type: object
+          description: e.g., "none", "basic", "bearer"
           allOf:
             - $ref: "#/components/schemas/model.AuthType"
-          description: e.g., "none", "basic", "bearer"
-          type: object
         username:
-          description: for "basic"
           type: string
-      type: object
+          description: for "basic"
     model.AuthType:
+      type: string
       enum:
         - none
         - basic
         - bearer
-      type: string
       x-enum-varnames:
         - AuthTypeNone
         - AuthTypeBasic
         - AuthTypeBearer
     model.HTTPJob:
-      example:
-        headers:
-          key: headers
-        method: method
-        auth: "{}"
-        body: body
-        valid_response_codes:
-          - 0
-          - 0
-        url: url
+      type: object
       properties:
         auth:
+          type: object
+          description: 'e.g., {"type": "basic", "username": "foo", "password": "bar"}'
           allOf:
             - $ref: "#/components/schemas/model.Auth"
-          description: 'e.g., {"type": "basic", "username": "foo", "password": "bar"}'
-          type: object
         body:
-          description: 'e.g., "{\"hello\": \"world\"}"'
           type: string
+          description: 'e.g., "{\"hello\": \"world\"}"'
         headers:
+          type: object
           additionalProperties:
             type: string
           description: 'e.g., {"Content-Type": "application/json"}'
-          type: object
         method:
+          type: string
           description: e.g., "GET", "POST", "PUT", "PATCH", "DELETE"
-          type: string
         url:
-          description: e.g., "https://example.com"
           type: string
+          description: e.g., "https://example.com"
         valid_response_codes:
+          type: array
           description: e.g., [200, 201, 202]
           items:
             type: integer
-          type: array
-      type: object
     model.Job:
-      example:
-        http_job:
-          headers:
-            key: headers
-          method: method
-          auth: "{}"
-          body: body
-          valid_response_codes:
-            - 0
-            - 0
-          url: url
-        cron_schedule: cron_schedule
-        next_run: next_run
-        updated_at: updated_at
-        created_at: created_at
-        amqp_job:
-          headers:
-            key: "{}"
-          content_type: content_type
-          connection: connection
-          exchange: exchange
-          body: body
-          routing_key: routing_key
-        execute_at: execute_at
-        id: id
+      type: object
       properties:
         amqp_job:
           $ref: "#/components/schemas/model.AMQPJob"
         created_at:
           type: string
         cron_schedule:
+          type: string
           description: for recurring jobs
-          type: string
         execute_at:
-          description: for one-off jobs
           type: string
+          description: for one-off jobs
         http_job:
           $ref: "#/components/schemas/model.HTTPJob"
         id:
           type: string
         next_run:
-          description:
-            when the job is scheduled to run next (can be null if the job
-            is not scheduled to run again)
           type: string
+          description: >-
+            when the job is scheduled to run next (can be null if the job is not
+            scheduled to run again)
         status:
           $ref: "#/components/schemas/model.JobStatus"
         type:
           $ref: "#/components/schemas/model.JobType"
         updated_at:
           type: string
-      type: object
     model.JobCreate:
+      type: object
       properties:
         amqp_job:
           $ref: "#/components/schemas/model.AMQPJob"
         cron_schedule:
+          type: string
           description: for recurring jobs
-          type: string
         execute_at:
-          description: ExecuteAt and CronSchedule are mutually exclusive.
           type: string
+          description: ExecuteAt and CronSchedule are mutually exclusive.
         http_job:
+          type: object
+          description: HTTPJob and AMQPJob are mutually exclusive.
           allOf:
             - $ref: "#/components/schemas/model.HTTPJob"
-          description: HTTPJob and AMQPJob are mutually exclusive.
-          type: object
         type:
+          type: object
+          description: Job type
           allOf:
             - $ref: "#/components/schemas/model.JobType"
-          description: Job type
-          type: object
-      type: object
     model.JobExecution:
-      example:
-        error_message: error_message
-        start_time: start_time
-        job_id: job_id
-        success: true
-        end_time: end_time
-        id: 0
+      type: object
       properties:
         end_time:
           type: string
@@ -455,24 +374,24 @@ components:
           type: string
         success:
           type: boolean
-      type: object
     model.JobStatus:
+      type: string
       enum:
         - RUNNING
         - STOPPED
-      type: string
       x-enum-varnames:
         - JobStatusRunning
         - JobStatusStopped
     model.JobType:
+      type: string
       enum:
         - HTTP
         - AMQP
-      type: string
       x-enum-varnames:
         - JobTypeHTTP
         - JobTypeAMQP
     model.JobUpdate:
+      type: object
       properties:
         amqp:
           $ref: "#/components/schemas/model.AMQPJob"
@@ -484,4 +403,3 @@ components:
           $ref: "#/components/schemas/model.HTTPJob"
         type:
           $ref: "#/components/schemas/model.JobType"
-      type: object

@@ -55,7 +55,7 @@ type ModelAMQPJob struct {
 	Exchange *string `json:"exchange,omitempty"`
 
 	// Headers e.g., {"x-delay": 10000}
-	Headers *map[string]map[string]interface{} `json:"headers,omitempty"`
+	Headers *map[string]interface{} `json:"headers,omitempty"`
 
 	// RoutingKey e.g., "my_routing_key"
 	RoutingKey *string `json:"routing_key,omitempty"`
