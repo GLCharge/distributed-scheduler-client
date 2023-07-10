@@ -242,7 +242,7 @@ components:
           description: e.g., "Hello, world!"
         body_encoding:
           type: object
-          description: e.g., "none", "base64", "protojson"
+          description: e.g., null, "base64"
           allOf:
             - $ref: "#/components/schemas/model.BodyEncoding"
         connection:
@@ -292,10 +292,8 @@ components:
       type: string
       enum:
         - base64
-        - protojson
       x-enum-varnames:
         - BodyEncodingBase64
-        - BodyEncodingProtoJson
     model.HTTPJob:
       type: object
       properties:

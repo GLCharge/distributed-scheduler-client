@@ -25,8 +25,7 @@ const (
 
 // Defines values for ModelBodyEncoding.
 const (
-	BodyEncodingBase64    ModelBodyEncoding = "base64"
-	BodyEncodingProtoJson ModelBodyEncoding = "protojson"
+	BodyEncodingBase64 ModelBodyEncoding = "base64"
 )
 
 // Defines values for ModelJobStatus.
@@ -51,7 +50,7 @@ type ModelAMQPJob struct {
 	// Body e.g., "Hello, world!"
 	Body *string `json:"body,omitempty"`
 
-	// BodyEncoding e.g., "none", "base64", "protojson"
+	// BodyEncoding e.g., null, "base64"
 	BodyEncoding *ModelBodyEncoding `json:"body_encoding,omitempty"`
 
 	// Connection e.g., "amqp://guest:guest@localhost:5672/"
