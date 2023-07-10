@@ -25,7 +25,7 @@ paths:
           schema:
             type: integer
       responses:
-        "200":
+        200:
           description: OK
           content:
             application/json:
@@ -33,13 +33,13 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/model.Job"
-        "400":
+        400:
           description: Bad Request
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/handlers.ErrorResponse"
-        "500":
+        500:
           description: Internal Server Error
           content:
             application/json:
@@ -58,19 +58,19 @@ paths:
               $ref: "#/components/schemas/model.JobCreate"
         required: true
       responses:
-        "201":
+        201:
           description: Created
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/model.Job"
-        "400":
+        400:
           description: Bad Request
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/handlers.ErrorResponse"
-        "500":
+        500:
           description: Internal Server Error
           content:
             application/json:
@@ -91,19 +91,19 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        200:
           description: OK
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/model.Job"
-        "400":
+        400:
           description: Bad Request
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/handlers.ErrorResponse"
-        "500":
+        500:
           description: Internal Server Error
           content:
             application/json:
@@ -129,19 +129,19 @@ paths:
               $ref: "#/components/schemas/model.JobUpdate"
         required: true
       responses:
-        "200":
+        200:
           description: OK
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/model.Job"
-        "400":
+        400:
           description: Bad Request
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/handlers.ErrorResponse"
-        "500":
+        500:
           description: Internal Server Error
           content:
             application/json:
@@ -161,16 +161,16 @@ paths:
           schema:
             type: string
       responses:
-        "204":
+        204:
           description: No Content
           content: {}
-        "400":
+        400:
           description: Bad Request
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/handlers.ErrorResponse"
-        "500":
+        500:
           description: Internal Server Error
           content:
             application/json:
@@ -181,9 +181,9 @@ paths:
       tags:
         - jobs
       summary: Get job executions
-      description: >-
-        Get job executions with the given job ID, failed only flag, limit and
-        offset
+      description:
+        Get job executions with the given job ID, failed only flag, limit
+        and offset
       parameters:
         - name: id
           in: path
@@ -207,7 +207,7 @@ paths:
           schema:
             type: integer
       responses:
-        "200":
+        200:
           description: OK
           content:
             application/json:
@@ -215,13 +215,13 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/model.JobExecution"
-        "400":
+        400:
           description: Bad Request
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/handlers.ErrorResponse"
-        "500":
+        500:
           description: Internal Server Error
           content:
             application/json:
@@ -240,6 +240,11 @@ components:
         body:
           type: string
           description: e.g., "Hello, world!"
+        body_encoding:
+          type: object
+          description: e.g., "none", "base64", "protojson"
+          allOf:
+            - $ref: "#/components/schemas/model.BodyEncoding"
         connection:
           type: string
           description: e.g., "amqp://guest:guest@localhost:5672/"
@@ -283,6 +288,14 @@ components:
         - AuthTypeNone
         - AuthTypeBasic
         - AuthTypeBearer
+    model.BodyEncoding:
+      type: string
+      enum:
+        - base64
+        - protojson
+      x-enum-varnames:
+        - BodyEncodingBase64
+        - BodyEncodingProtoJson
     model.HTTPJob:
       type: object
       properties:
@@ -329,9 +342,9 @@ components:
           type: string
         next_run:
           type: string
-          description: >-
-            when the job is scheduled to run next (can be null if the job is not
-            scheduled to run again)
+          description:
+            when the job is scheduled to run next (can be null if the job
+            is not scheduled to run again)
         status:
           $ref: "#/components/schemas/model.JobStatus"
         type:
