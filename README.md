@@ -16,7 +16,7 @@ Every version has OpenAPI specification that is used to generate the client usin
 ## Usage
 
 ```go
-import client "https://github.com/GLCharge/distributed-scheduler-client"
+import client "https://github.com/GLCharge/distributed-scheduler-client
 ```
 
 ## Generation
