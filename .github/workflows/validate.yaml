@@ -1,0 +1,42 @@
+name: "Validate OpenAPI specification"
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - v*
+    paths:
+      - /api/**.yaml
+  pull_request:
+    types: [ opened, synchronize ]
+    paths:
+      - /api/**.yaml
+
+jobs:
+  validate-specification:
+    name: "Validate the OpenAPI specification"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Swagger Editor Validator
+        uses: char0n/swagger-editor-validate@v1.3.2
+        with:
+          definition-file: ./api/openapi.yaml
+
+  fmt:
+    name: Format Go code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.19
+
+      - name: Format Go code
+        run: go fmt ./...

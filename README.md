@@ -9,6 +9,12 @@ Every version has OpenAPI specification that is used to generate the client usin
 
 ## Installation
 
+```bash
+ go get github.com/GLCharge/distributed-scheduler-client@latest"
+```
+
+## Usage
+
 ```go
 import client "https://github.com/GLCharge/distributed-scheduler-client"
 ```
@@ -17,7 +23,7 @@ import client "https://github.com/GLCharge/distributed-scheduler-client"
 
 This code base, was generated using [oapi-codegen](https://github.com/deepmap/oapi-codegen).
 
-You can generate the code by running the Makefile script:
+You can generate the SDK manually by running the Makefile script:
 
 ```bash
 make gen-client
