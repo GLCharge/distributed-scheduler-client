@@ -5,7 +5,7 @@ info:
   contact: {}
   version: "1.0"
 servers:
-  - url: //localhost:8000/v1
+  - url: http://localhost:8000/v1
 paths:
   /jobs:
     get:
@@ -24,6 +24,13 @@ paths:
           description: Offset
           schema:
             type: integer
+        - name: tags
+          in: query
+          description: Tags
+          style: form
+          explode: false
+          schema:
+            type: array
       responses:
         "200":
           description: OK
@@ -334,6 +341,10 @@ components:
             is not scheduled to run again)
         status:
           $ref: '#/components/schemas/model.JobStatus'
+        tags:
+          type: array
+          items:
+            type: string
         type:
           $ref: '#/components/schemas/model.JobType'
         updated_at:
@@ -354,6 +365,10 @@ components:
           description: HTTPJob and AMQPJob are mutually exclusive.
           allOf:
             - $ref: '#/components/schemas/model.HTTPJob'
+        tags:
+          type: array
+          items:
+            type: string
         type:
           type: object
           description: Job type
@@ -401,6 +416,10 @@ components:
           type: string
         http:
           $ref: '#/components/schemas/model.HTTPJob'
+        tags:
+          type: array
+          items:
+            type: string
         type:
           $ref: '#/components/schemas/model.JobType'
 x-original-swagger-version: "2.0"

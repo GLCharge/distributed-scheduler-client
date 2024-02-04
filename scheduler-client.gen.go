@@ -116,6 +116,7 @@ type ModelJob struct {
 	// NextRun when the job is scheduled to run next (can be null if the job is not scheduled to run again)
 	NextRun   *string         `json:"next_run,omitempty"`
 	Status    *ModelJobStatus `json:"status,omitempty"`
+	Tags      *[]string       `json:"tags,omitempty"`
 	Type      *ModelJobType   `json:"type,omitempty"`
 	UpdatedAt *string         `json:"updated_at,omitempty"`
 }
@@ -132,6 +133,7 @@ type ModelJobCreate struct {
 
 	// HttpJob HTTPJob and AMQPJob are mutually exclusive.
 	HttpJob *ModelHTTPJob `json:"http_job,omitempty"`
+	Tags    *[]string     `json:"tags,omitempty"`
 
 	// Type Job type
 	Type *ModelJobType `json:"type,omitempty"`
@@ -159,6 +161,7 @@ type ModelJobUpdate struct {
 	CronSchedule *string       `json:"cron_schedule,omitempty"`
 	ExecuteAt    *string       `json:"execute_at,omitempty"`
 	Http         *ModelHTTPJob `json:"http,omitempty"`
+	Tags         *[]string     `json:"tags,omitempty"`
 	Type         *ModelJobType `json:"type,omitempty"`
 }
 
@@ -169,6 +172,9 @@ type GetJobsParams struct {
 
 	// Offset Offset
 	Offset *int `form:"offset,omitempty" json:"offset,omitempty"`
+
+	// Tags Tags
+	Tags *[]interface{} `form:"tags,omitempty" json:"tags,omitempty"`
 }
 
 // GetJobsIdExecutionsParams defines parameters for GetJobsIdExecutions.
@@ -422,6 +428,22 @@ func NewGetJobsRequest(server string, params *GetJobsParams) (*http.Request, err
 		if params.Offset != nil {
 
 			if queryFrag, err := runtime.StyleParamWithLocation("form", true, "offset", runtime.ParamLocationQuery, *params.Offset); err != nil {
+				return nil, err
+			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+				return nil, err
+			} else {
+				for k, v := range parsed {
+					for _, v2 := range v {
+						queryValues.Add(k, v2)
+					}
+				}
+			}
+
+		}
+
+		if params.Tags != nil {
+
+			if queryFrag, err := runtime.StyleParamWithLocation("form", false, "tags", runtime.ParamLocationQuery, *params.Tags); err != nil {
 				return nil, err
 			} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
 				return nil, err
