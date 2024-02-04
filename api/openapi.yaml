@@ -5,7 +5,7 @@ info:
   contact: {}
   version: "1.0"
 servers:
-  - url: //http://localhost:8000/v1
+  - url: //localhost:8000/v1
 paths:
   /jobs:
     get:
@@ -25,26 +25,26 @@ paths:
           schema:
             type: integer
       responses:
-        200:
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/model.Job"
-        400:
+                  $ref: '#/components/schemas/model.Job'
+        "400":
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
-        500:
+                $ref: '#/components/schemas/handlers.ErrorResponse'
+        "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
+                $ref: '#/components/schemas/handlers.ErrorResponse'
     post:
       tags:
         - jobs
@@ -55,27 +55,27 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/model.JobCreate"
+              $ref: '#/components/schemas/model.JobCreate'
         required: true
       responses:
-        201:
+        "201":
           description: Created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/model.Job"
-        400:
+                $ref: '#/components/schemas/model.Job'
+        "400":
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
-        500:
+                $ref: '#/components/schemas/handlers.ErrorResponse'
+        "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
+                $ref: '#/components/schemas/handlers.ErrorResponse'
       x-codegen-request-body-name: job
   /jobs/{id}:
     get:
@@ -91,24 +91,24 @@ paths:
           schema:
             type: string
       responses:
-        200:
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/model.Job"
-        400:
+                $ref: '#/components/schemas/model.Job'
+        "400":
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
-        500:
+                $ref: '#/components/schemas/handlers.ErrorResponse'
+        "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
+                $ref: '#/components/schemas/handlers.ErrorResponse'
     put:
       tags:
         - jobs
@@ -126,27 +126,27 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/model.JobUpdate"
+              $ref: '#/components/schemas/model.JobUpdate'
         required: true
       responses:
-        200:
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/model.Job"
-        400:
+                $ref: '#/components/schemas/model.Job'
+        "400":
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
-        500:
+                $ref: '#/components/schemas/handlers.ErrorResponse'
+        "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
+                $ref: '#/components/schemas/handlers.ErrorResponse'
       x-codegen-request-body-name: job
     delete:
       tags:
@@ -161,29 +161,28 @@ paths:
           schema:
             type: string
       responses:
-        204:
+        "204":
           description: No Content
           content: {}
-        400:
+        "400":
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
-        500:
+                $ref: '#/components/schemas/handlers.ErrorResponse'
+        "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
+                $ref: '#/components/schemas/handlers.ErrorResponse'
   /jobs/{id}/executions:
     get:
       tags:
         - jobs
       summary: Get job executions
-      description:
-        Get job executions with the given job ID, failed only flag, limit
-        and offset
+      description: "Get job executions with the given job ID, failed only flag, limit\
+        \ and offset"
       parameters:
         - name: id
           in: path
@@ -207,26 +206,26 @@ paths:
           schema:
             type: integer
       responses:
-        200:
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/model.JobExecution"
-        400:
+                  $ref: '#/components/schemas/model.JobExecution'
+        "400":
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
-        500:
+                $ref: '#/components/schemas/handlers.ErrorResponse'
+        "500":
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/handlers.ErrorResponse"
+                $ref: '#/components/schemas/handlers.ErrorResponse'
 components:
   schemas:
     handlers.ErrorResponse:
@@ -239,28 +238,24 @@ components:
       properties:
         body:
           type: string
-          description: e.g., "Hello, world!"
-        body_encoding:
-          type: object
-          description: e.g., null, "base64"
-          allOf:
-            - $ref: "#/components/schemas/model.BodyEncoding"
+          description: "e.g., \"Hello, world!\""
         connection:
           type: string
-          description: e.g., "amqp://guest:guest@localhost:5672/"
+          description: "e.g., \"amqp://guest:guest@localhost:5672/\""
         content_type:
           type: string
-          description: e.g., "text/plain"
+          description: "e.g., \"text/plain\""
         exchange:
           type: string
-          description: e.g., "my_exchange"
+          description: "e.g., \"my_exchange\""
         headers:
           type: object
-          properties: {}
-          description: 'e.g., {"x-delay": 10000}'
+          additionalProperties:
+            type: object
+          description: "e.g., {\"x-delay\": 10000}"
         routing_key:
           type: string
-          description: e.g., "my_routing_key"
+          description: "e.g., \"my_routing_key\""
     model.Auth:
       type: object
       properties:
@@ -272,9 +267,9 @@ components:
           description: for "basic"
         type:
           type: object
-          description: e.g., "none", "basic", "bearer"
+          description: "e.g., \"none\", \"basic\", \"bearer\""
           allOf:
-            - $ref: "#/components/schemas/model.AuthType"
+            - $ref: '#/components/schemas/model.AuthType'
         username:
           type: string
           description: for "basic"
@@ -288,44 +283,39 @@ components:
         - AuthTypeNone
         - AuthTypeBasic
         - AuthTypeBearer
-    model.BodyEncoding:
-      type: string
-      enum:
-        - base64
-      x-enum-varnames:
-        - BodyEncodingBase64
     model.HTTPJob:
       type: object
       properties:
         auth:
           type: object
-          description: 'e.g., {"type": "basic", "username": "foo", "password": "bar"}'
+          description: "e.g., {\"type\": \"basic\", \"username\": \"foo\", \"password\"\
+            : \"bar\"}"
           allOf:
-            - $ref: "#/components/schemas/model.Auth"
+            - $ref: '#/components/schemas/model.Auth'
         body:
           type: string
-          description: 'e.g., "{\"hello\": \"world\"}"'
+          description: "e.g., \"{\\\"hello\\\": \\\"world\\\"}\""
         headers:
           type: object
           additionalProperties:
             type: string
-          description: 'e.g., {"Content-Type": "application/json"}'
+          description: "e.g., {\"Content-Type\": \"application/json\"}"
         method:
           type: string
-          description: e.g., "GET", "POST", "PUT", "PATCH", "DELETE"
+          description: "e.g., \"GET\", \"POST\", \"PUT\", \"PATCH\", \"DELETE\""
         url:
           type: string
-          description: e.g., "https://example.com"
+          description: "e.g., \"https://example.com\""
         valid_response_codes:
           type: array
-          description: e.g., [200, 201, 202]
+          description: "e.g., [200, 201, 202]"
           items:
             type: integer
     model.Job:
       type: object
       properties:
         amqp_job:
-          $ref: "#/components/schemas/model.AMQPJob"
+          $ref: '#/components/schemas/model.AMQPJob'
         created_at:
           type: string
         cron_schedule:
@@ -335,25 +325,24 @@ components:
           type: string
           description: for one-off jobs
         http_job:
-          $ref: "#/components/schemas/model.HTTPJob"
+          $ref: '#/components/schemas/model.HTTPJob'
         id:
           type: string
         next_run:
           type: string
-          description:
-            when the job is scheduled to run next (can be null if the job
+          description: when the job is scheduled to run next (can be null if the job
             is not scheduled to run again)
         status:
-          $ref: "#/components/schemas/model.JobStatus"
+          $ref: '#/components/schemas/model.JobStatus'
         type:
-          $ref: "#/components/schemas/model.JobType"
+          $ref: '#/components/schemas/model.JobType'
         updated_at:
           type: string
     model.JobCreate:
       type: object
       properties:
         amqp_job:
-          $ref: "#/components/schemas/model.AMQPJob"
+          $ref: '#/components/schemas/model.AMQPJob'
         cron_schedule:
           type: string
           description: for recurring jobs
@@ -364,12 +353,12 @@ components:
           type: object
           description: HTTPJob and AMQPJob are mutually exclusive.
           allOf:
-            - $ref: "#/components/schemas/model.HTTPJob"
+            - $ref: '#/components/schemas/model.HTTPJob'
         type:
           type: object
           description: Job type
           allOf:
-            - $ref: "#/components/schemas/model.JobType"
+            - $ref: '#/components/schemas/model.JobType'
     model.JobExecution:
       type: object
       properties:
@@ -405,12 +394,13 @@ components:
       type: object
       properties:
         amqp:
-          $ref: "#/components/schemas/model.AMQPJob"
+          $ref: '#/components/schemas/model.AMQPJob'
         cron_schedule:
           type: string
         execute_at:
           type: string
         http:
-          $ref: "#/components/schemas/model.HTTPJob"
+          $ref: '#/components/schemas/model.HTTPJob'
         type:
-          $ref: "#/components/schemas/model.JobType"
+          $ref: '#/components/schemas/model.JobType'
+x-original-swagger-version: "2.0"
