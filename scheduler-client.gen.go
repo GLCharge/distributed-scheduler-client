@@ -23,6 +23,11 @@ const (
 	AuthTypeNone   ModelAuthType = "none"
 )
 
+// Defines values for ModelBodyEncoding.
+const (
+	BodyEncodingBase64 ModelBodyEncoding = "base64"
+)
+
 // Defines values for ModelJobStatus.
 const (
 	JobStatusRunning ModelJobStatus = "RUNNING"
@@ -45,6 +50,9 @@ type ModelAMQPJob struct {
 	// Body e.g., "Hello, world!"
 	Body *string `json:"body,omitempty"`
 
+	// BodyEncoding e.g., null, "base64"
+	BodyEncoding *ModelBodyEncoding `json:"body_encoding,omitempty"`
+
 	// Connection e.g., "amqp://guest:guest@localhost:5672/"
 	Connection *string `json:"connection,omitempty"`
 
@@ -55,7 +63,7 @@ type ModelAMQPJob struct {
 	Exchange *string `json:"exchange,omitempty"`
 
 	// Headers e.g., {"x-delay": 10000}
-	Headers *map[string]map[string]interface{} `json:"headers,omitempty"`
+	Headers *map[string]interface{} `json:"headers,omitempty"`
 
 	// RoutingKey e.g., "my_routing_key"
 	RoutingKey *string `json:"routing_key,omitempty"`
@@ -78,6 +86,9 @@ type ModelAuth struct {
 
 // ModelAuthType defines model for model.AuthType.
 type ModelAuthType string
+
+// ModelBodyEncoding defines model for model.BodyEncoding.
+type ModelBodyEncoding string
 
 // ModelHTTPJob defines model for model.HTTPJob.
 type ModelHTTPJob struct {

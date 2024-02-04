@@ -246,6 +246,11 @@ components:
         body:
           type: string
           description: "e.g., \"Hello, world!\""
+        body_encoding:
+          type: object
+          description: "e.g., null, \"base64\""
+          allOf:
+            - $ref: '#/components/schemas/model.BodyEncoding'
         connection:
           type: string
           description: "e.g., \"amqp://guest:guest@localhost:5672/\""
@@ -257,8 +262,7 @@ components:
           description: "e.g., \"my_exchange\""
         headers:
           type: object
-          additionalProperties:
-            type: object
+          additionalProperties: true
           description: "e.g., {\"x-delay\": 10000}"
         routing_key:
           type: string
@@ -290,6 +294,12 @@ components:
         - AuthTypeNone
         - AuthTypeBasic
         - AuthTypeBearer
+    model.BodyEncoding:
+      type: string
+      enum:
+        - base64
+      x-enum-varnames:
+        - BodyEncodingBase64
     model.HTTPJob:
       type: object
       properties:
